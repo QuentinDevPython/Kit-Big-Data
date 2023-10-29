@@ -300,7 +300,8 @@ class Task:
         """
         Get a list of tasks that are in progress.
 
-        :return: A list of Task instances with a completion level between 0 and 100.
+        :return: A list of Task instances with a completion level
+            between 0 and 100.
         :rtype: List[Task]
         """
         return list(
