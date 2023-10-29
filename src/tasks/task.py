@@ -1,6 +1,4 @@
-"""
-This module defines the Task class for managing tasks.
-"""
+"""This module defines the Task class for managing tasks."""
 
 import datetime
 import itertools
@@ -32,6 +30,7 @@ class Task:
     - instances: A list to store all task instances.
 
     """
+
     id_task = itertools.count()
     instances = []
 
@@ -65,8 +64,7 @@ class Task:
         self, name: str, due_date: str, description: str, completion: int
     ):
         """
-        Create a task with the specified attributes threw setters
-        to pass attribute controls.
+        Create a task with the specified attributes threw class setters.
 
         :param name: The name of the task.
         :type name: str
@@ -105,7 +103,7 @@ class Task:
 
     def control_variable_is_integer(func):
         """
-        Decorator function for controlling if a variable is an integer.
+        Decorate a function to control if a variable is an integer.
 
         :param func: The function to be decorated.
         :type func: callable
@@ -123,9 +121,7 @@ class Task:
 
     def control_name_validity(func):
         """
-        Decorator function for controlling the validity of task names.
-
-        This decorator ensures that task names are not empty.
+        Decorate a function to control the validity of task names.
 
         :param func: The function to be decorated.
         :type func: callable
@@ -151,7 +147,7 @@ class Task:
     @control_name_validity
     def set_name(self, name: str):
         """
-        Sets the name of the task.
+        Set the name of the task.
 
         :param name: The new name of the task.
         :type name: str
@@ -160,7 +156,7 @@ class Task:
 
     def control_date_validity(func):
         """
-        Decorator function for controlling the validity of due dates.
+        Decorate a function to control the validity of due dates.
 
         This decorator ensures that due dates are in the format
             'DD/MM/YYYY', and they are set to today or a future date.
@@ -208,7 +204,7 @@ class Task:
     @control_date_validity
     def set_due_date(self, due_date: str):
         """
-        Sets the due date of the task.
+        Set the due date of the task.
 
         :param due_date: The new due date of the task.
         :type due_date: datetime
@@ -218,10 +214,7 @@ class Task:
 
     def control_description_validity(func):
         """
-        Decorator function for controlling the validity of task descriptions.
-
-        This decorator ensures that task descriptions do not exceed 100
-        characters in length.
+        Decorate a function to control the validity of task descriptions.
 
         :param func: The function to be decorated.
         :type func: callable
@@ -243,7 +236,7 @@ class Task:
     @control_description_validity
     def set_description(self, description: str):
         """
-        Sets the description of the task.
+        Set the description of the task.
 
         :param description: The new description of the task.
         :type description: str
@@ -252,10 +245,7 @@ class Task:
 
     def control_completion_validity(func):
         """
-        Decorator function to control the validity of completion percentage.
-
-        This decorator ensures that the completion percentage falls within
-        the range of 0 to 100%.
+        Decorate a function to control the validity of completion percentage.
 
         :param func: The function to be decorated.
         :type func: callable
@@ -278,7 +268,7 @@ class Task:
     @control_completion_validity
     def set_completion(self, completion: int):
         """
-        Sets the completion percentage of the task.
+        Set the completion percentage of the task.
 
         :param completion: The new completion percentage of the task.
         :type completion: int
@@ -288,7 +278,7 @@ class Task:
     @classmethod
     def get_all_tasks(cls):
         """
-        Returns a list of all the tasks.
+        Return a list of all the tasks.
 
         :return: A list of all tasks.
         :rtype: List[Task]
@@ -298,7 +288,7 @@ class Task:
     @classmethod
     def get_todo_tasks(cls):
         """
-        Get a list of all TODO tasks within the class's instances.
+        Get a list of all TODO tasks.
 
         :return: A list of Task instances with a completion level of 0.
         :rtype: List[Task]
@@ -307,6 +297,12 @@ class Task:
 
     @classmethod
     def get_doing_tasks(cls):
+        """
+        Get a list of tasks that are in progress.
+
+        :return: A list of Task instances with a completion level between 0 and 100.
+        :rtype: List[Task]
+        """
         return list(
             filter(
                 lambda task: (task.completion > 0) and (task.completion < 100),
@@ -316,6 +312,12 @@ class Task:
 
     @classmethod
     def get_done_tasks(cls):
+        """
+        Get a list of tasks that are marked as completed.
+
+        :return: A list of Task instances with a completion level of 100.
+        :rtype: List[Task]
+        """
         return list(filter(lambda task: task.completion == 100, cls.instances))
 
     @classmethod
@@ -325,10 +327,8 @@ class Task:
 
         :param name: The name of the task to retrieve.
         :type name: str
-
         :return: The task with the specified name.
         :rtype: Task
-
         :raises IndexError: If no task with the given name is found.
         """
         return list(filter(lambda task: task.name == name, cls.instances))[0]
@@ -340,13 +340,10 @@ class Task:
 
         :param id: The unique identifier of the task to retrieve.
         :type id: int
-
         :return: The task with the specified ID.
         :rtype: Task
-
         :raises IndexError: If no task with the given ID is found.
         """
-
         return list(filter(lambda task: task.id == id, cls.instances))[0]
 
     @classmethod
@@ -356,7 +353,6 @@ class Task:
 
         :param task: The task object to remove.
         :type task: Task
-
         :raises ValueError: If the task is not in the list of tasks.
         """
         cls.instances.remove(task)
@@ -364,7 +360,7 @@ class Task:
 
     def __repr__(self):
         """
-        Returns a string representation of the task.
+        Return a string representation of the task.
 
         :return: A string representation of the task.
         :rtype: str
@@ -377,7 +373,7 @@ class Task:
 
     def __str__(self):
         """
-        Returns a string representation of the task.
+        Return a string representation of the task.
 
         :return: A string representation of the task.
         :rtype: str
