@@ -36,8 +36,8 @@ jobs:
         pip install flake8 coverage
         pip install pydocstyle
 
-    # - name: Check PEP 8 Compliance
-    #   run: flake8 --statistics .
+    - name: Check PEP 8 Compliance
+      run: flake8 --statistics .
 
     - name: Run Unit Tests
       run: pytest
