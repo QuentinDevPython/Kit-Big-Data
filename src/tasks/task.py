@@ -1,8 +1,37 @@
+"""
+This module defines the Task class for managing tasks.
+"""
+
 import datetime
 import itertools
 
 
 class Task:
+    """
+    The `Task` class represents a task.
+
+    Example Usage:
+
+    .. code-block:: python
+
+        # Create a new task
+        task = Task(
+            "My task", datetime.datetime(2022, 1, 1),
+            "This is task 1", 50, "Project A"
+        )
+
+        # Set the completion percentage of the task
+        task1.set_completion(75)
+
+        # Get all tasks
+        all_tasks = Task.get_all_tasks()
+
+    Fields:
+
+    - id_task: A counter to generate unique task IDs.
+    - instances: A list to store all task instances.
+
+    """
     id_task = itertools.count()
     instances = []
 
@@ -10,6 +39,19 @@ class Task:
         self, name: str, due_date: str, description: str = "",
         completion: int = 0
     ):
+        """
+        Initialize a Task object.
+
+        :param name: The name of the task.
+        :type name: str
+        :param due_date: The due date of the task (in the format
+            'DD/MM/YYYY').
+        :type due_date: str
+        :param description: An optional description of the task.
+        :type description: str
+        :param completion: An optional completion percentage (0 to 100).
+        :type completion: int
+        """
         self.id = next(Task.id_task) + 1
         self.name = ""
         self.due_date = ""
@@ -22,6 +64,20 @@ class Task:
     def create_task(
         self, name: str, due_date: str, description: str, completion: int
     ):
+        """
+        Create a task with the specified attributes threw setters
+        to pass attribute controls.
+
+        :param name: The name of the task.
+        :type name: str
+        :param due_date: The due date of the task (in the format
+            'DD/MM/YYYY').
+        :type due_date: str
+        :param description: An optional description of the task.
+        :type description: str
+        :param completion: An optional completion percentage (0 to 100).
+        :type completion: int
+        """
         self.set_name(name)
         self.set_due_date(due_date)
         self.set_description(description)
@@ -29,7 +85,7 @@ class Task:
 
     def control_variable_is_string(func):
         """
-        Decorator function for controlling if a variable is a string.
+        Decorate a function to control if a variable is a string.
 
         :param func: The function to be decorated.
         :type func: callable
