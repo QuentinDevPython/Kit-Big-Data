@@ -45,6 +45,24 @@ class TaskList:
         task_to_remove = Task.get_task_by_id(id)
         Task.remove(task_to_remove)
 
+    def set_due_date_by_name(self, name: str, due_date: str):
+        Task.get_task_by_name(name).set_due_date(due_date)
+
+    def set_due_date_by_id(self, id: int, due_date: str):
+        Task.get_task_by_id(id).set_due_date(due_date)
+
+    def set_description_by_name(self, name: str, description: str):
+        Task.get_task_by_name(name).set_description(description)
+
+    def set_description_by_id(self, id: int, description: str):
+        Task.get_task_by_id(id).set_description(description)
+
+    def set_task_completion_by_name(self, name: str, completion: int):
+        Task.get_task_by_name(name).set_completion(completion)
+
+    def set_task_completion_by_id(self, id: int, completion: int):
+        Task.get_task_by_id(id).set_completion(completion)
+
     def complete_task_by_name(self, name: str):
         """
         Mark a task as completed by its name.
@@ -78,5 +96,21 @@ class TaskList:
     def display_tasks(self):
         self.start_of_display()
         for task in Task.get_all_tasks():
+            print(task, "\n")
+        self.end_of_display()
+
+    def display_tasks_by_completion(self):
+        self.start_of_display()
+        print("---- TO DO TASKS ----")
+        print()
+        for task in Task.get_todo_tasks():
+            print(task, "\n")
+        print("---- DOING TASKS ----")
+        print()
+        for task in Task.get_doing_tasks():
+            print(task, "\n")
+        print("---- DONE TASKS -----")
+        print()
+        for task in Task.get_done_tasks():
             print(task, "\n")
         self.end_of_display()

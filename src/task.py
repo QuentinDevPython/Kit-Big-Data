@@ -224,6 +224,29 @@ class Task:
         return cls.instances
 
     @classmethod
+    def get_todo_tasks(cls):
+        """
+        Get a list of all TODO tasks within the class's instances.
+
+        :return: A list of Task instances with a completion level of 0.
+        :rtype: List[Task]
+        """
+        return list(filter(lambda task: task.completion == 0, cls.instances))
+
+    @classmethod
+    def get_doing_tasks(cls):
+        return list(
+            filter(
+                lambda task: (task.completion > 0) and (task.completion < 100),
+                cls.instances,
+            )
+        )
+
+    @classmethod
+    def get_done_tasks(cls):
+        return list(filter(lambda task: task.completion == 100, cls.instances))
+
+    @classmethod
     def get_task_by_name(cls, name: str):
         """
         Retrieve a task by its name.
