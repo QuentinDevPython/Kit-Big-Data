@@ -19,7 +19,7 @@ class TaskList:
         :param due_date: The due date of the task (in string format).
         :type due_date: str
 
-        :param description: Additional description of the task 
+        :param description: Additional description of the task
             (default is an empty string).
         :type description: str
 
