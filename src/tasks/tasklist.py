@@ -1,12 +1,14 @@
 from src.tasks.task import Task
 from src.utils import read_json, write_json
 
+
 class TaskList:
     def __init__(self):
         pass
 
     def add_task(
-        self, name: str, due_date: str, description: str = "", completion: int = 0
+        self, name: str, due_date: str, description: str = "",
+        completion: int = 0
     ):
         """
         Add a new task to the task list.
@@ -17,7 +19,8 @@ class TaskList:
         :param due_date: The due date of the task (in string format).
         :type due_date: str
 
-        :param description: Additional description of the task (default is an empty string).
+        :param description: Additional description of the task 
+            (default is an empty string).
         :type description: str
 
         :param completion: The completion status of the task (default is 0).
