@@ -19,11 +19,6 @@ jobs:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip
 
-    - name: Debug
-      run: |
-        ls -la
-        ls -la /github/workspace
-
     - name: Install Requirements Dependencies
       run: |
         REQ_FILE=$(find /github/workspace -name "requirements.txt")
