@@ -106,14 +106,14 @@ class Task:
         """
         Decorator function for controlling the validity of due dates.
 
-        This decorator ensures that due dates are in the format 
+        This decorator ensures that due dates are in the format
             'DD/MM/YYYY', and they are set to today or a future date.
 
         :param func: The function to be decorated.
         :type func: callable
         :return: The decorated function.
         :rtype: callable
-        :raises ValueError: If the date format is incorrect or if the 
+        :raises ValueError: If the date format is incorrect or if the
             date is not today or a future date.
         """
 
@@ -164,7 +164,7 @@ class Task:
         """
         Decorator function for controlling the validity of task descriptions.
 
-        This decorator ensures that task descriptions do not exceed 100 
+        This decorator ensures that task descriptions do not exceed 100
         characters in length.
 
         :param func: The function to be decorated.
@@ -198,14 +198,14 @@ class Task:
         """
         Decorator function to control the validity of completion percentage.
 
-        This decorator ensures that the completion percentage falls within 
+        This decorator ensures that the completion percentage falls within
         the range of 0 to 100%.
 
         :param func: The function to be decorated.
         :type func: callable
         :return: The decorated function.
         :rtype: callable
-        :raises ValueError: If the completion percentage is not in the 
+        :raises ValueError: If the completion percentage is not in the
             range [0, 100].
         """
 
