@@ -1,5 +1,5 @@
-from task import Task
-from utils import read_json, write_json
+from src.tasks.task import Task
+from src.utils import read_json, write_json
 
 class TaskList:
     def __init__(self):
