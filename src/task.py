@@ -224,17 +224,71 @@ class Task:
         return cls.instances
 
     @classmethod
+    def get_todo_tasks(cls):
+        """
+        Get a list of all TODO tasks within the class's instances.
+
+        :return: A list of Task instances with a completion level of 0.
+        :rtype: List[Task]
+        """
+        return list(filter(lambda task: task.completion == 0, cls.instances))
+
+    @classmethod
+    def get_doing_tasks(cls):
+        return list(
+            filter(
+                lambda task: (task.completion > 0) and (task.completion < 100),
+                cls.instances,
+            )
+        )
+
+    @classmethod
+    def get_done_tasks(cls):
+        return list(filter(lambda task: task.completion == 100, cls.instances))
+
+    @classmethod
     def get_task_by_name(cls, name: str):
+        """
+        Retrieve a task by its name.
+
+        :param name: The name of the task to retrieve.
+        :type name: str
+
+        :return: The task with the specified name.
+        :rtype: Task
+
+        :raises IndexError: If no task with the given name is found.
+        """
         return list(filter(lambda task: task.name == name, cls.instances))[0]
 
     @classmethod
     def get_task_by_id(cls, id: int):
+        """
+        Retrieve a task by its unique identifier.
+
+        :param id: The unique identifier of the task to retrieve.
+        :type id: int
+
+        :return: The task with the specified ID.
+        :rtype: Task
+
+        :raises IndexError: If no task with the given ID is found.
+        """
+
         return list(filter(lambda task: task.id == id, cls.instances))[0]
 
     @classmethod
-    def remove(cls, self):
-        cls.instances.remove(self)
-        del self
+    def remove(cls, task):
+        """
+        Remove a task from the list of tasks.
+
+        :param task: The task object to remove.
+        :type task: Task
+
+        :raises ValueError: If the task is not in the list of tasks.
+        """
+        cls.instances.remove(task)
+        del task
 
     def __repr__(self):
         """
