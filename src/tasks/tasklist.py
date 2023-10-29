@@ -1,5 +1,5 @@
 from task import Task
-
+from utils import read_json, write_json
 
 class TaskList:
     def __init__(self):
@@ -114,3 +114,41 @@ class TaskList:
         for task in Task.get_done_tasks():
             print(task, "\n")
         self.end_of_display()
+
+    def convert_list_tasks_into_dict(self) -> dict:
+        tasks = {}
+        for task in Task.get_all_tasks():
+            tasks[task.id] = {
+                "name": task.name,
+                "description": task.description,
+                "due_day": task.due_date.day,
+                "due_month": task.due_date.month,
+                "due_year": task.due_date.year,
+                "completion": task.completion,
+            }
+        return tasks
+
+    def create_tasks_from_dict(self, tasks: dict):
+        for _, task in tasks.items():
+            if len(str(task["due_day"])) == 1:
+                due_day = f"0{task['due_day']}"
+            else:
+                due_day = f"{task['due_day']}"
+
+            if len(str(task["due_month"])) == 1:
+                due_month = f"0{task['due_month']}"
+            else:
+                due_month = f"{task['due_month']}"
+
+            due_date = f"{due_day}/{due_month}/{task['due_year']}"
+            self.add_task(
+                task["name"], due_date, task["description"], task["completion"]
+            )
+
+    def save_tasks(self):
+        tasks = self.convert_list_tasks_into_dict()
+        write_json("../data/tasks.json", tasks)
+
+    def load_tasks(self):
+        tasks = read_json("../data/tasks.json")
+        self.create_tasks_from_dict(tasks)
