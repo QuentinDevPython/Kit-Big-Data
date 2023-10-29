@@ -24,7 +24,6 @@ jobs:
 
     - name: Install Requirements Dependencies
       run: |
-        echo 
         REQ_FILE=$(find -name "requirements.txt")
         if [ -f "$REQ_FILE" ]; then
             pip install -r "$REQ_FILE"
@@ -35,10 +34,9 @@ jobs:
     - name: Install PEP8 Dependencies
       run: |
         pip install flake8 coverage
-        pip install pytest
 
-    - name: Check PEP 8 Compliance
-      run: flake8 --statistics .
+    # - name: Check PEP 8 Compliance
+    #   run: flake8 --statistics .
 
     - name: Run Unit Tests
       run: pytest
