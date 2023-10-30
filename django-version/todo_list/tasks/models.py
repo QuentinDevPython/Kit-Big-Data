@@ -39,5 +39,5 @@ class Task(models.Model):
 
     class Meta:
         """Metadata for the Task model."""
-        
+
         ordering = ["complete"]
