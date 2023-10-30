@@ -9,18 +9,18 @@ class Task(models.Model):
     Model representing a task.
 
     Attributes:
-        user (ForeignKey to User): The user associated with the task, can be null.
+        user (ForeignKey to User): The user associated with the task.
         title (CharField): The title of the task, max length 200 characters.
         description (TextField): A detailed description of the task.
-        complete (BooleanField): Indicates if the task is completed or not, default is False.
+        complete (BooleanField): Indicates if the task is completed or not.
         created (DateTimeField): The date and time when the task was created.
-        due_date (DateField, optional): The due date for the task. Can be changed later.
+        due_date (DateField, optional): The due date for the task.
 
     Methods:
         __str__(): A string representation of the task, returns the title.
 
     Meta:
-        ordering (list): Default ordering of tasks, sorted by 'complete' status.
+        ordering (list): Default order of tasks, sorted by 'complete' status.
     """
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
