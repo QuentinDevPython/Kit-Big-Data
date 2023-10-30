@@ -5,7 +5,7 @@ import json
 
 def read_json(filename: str) -> dict:
     """
-    Reads data from a JSON file.
+    Read data from a JSON file.
 
     :param filename: The name of the JSON file to read.
     :type filename: str
@@ -20,7 +20,7 @@ def read_json(filename: str) -> dict:
 
 def write_json(filename: str, data: dict):
     """
-    Writes data to a JSON file.
+    Write data to a JSON file.
 
     :param filename: The name of the JSON file to write to.
     :type filename: str
