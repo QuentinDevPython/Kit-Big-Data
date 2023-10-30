@@ -1,7 +1,4 @@
-"""
-This module provides a TaskList class to manage a list of tasks
-and various methods for adding, removing, and displaying tasks.
-"""
+"""This module provides a TaskList class to manage a list of tasks."""
 
 from src.tasks.task import Task
 from src.utils import read_json, write_json
@@ -29,9 +26,7 @@ class TaskList:
     """
 
     def __init__(self):
-        """
-        Initialize a new TaskList.
-        """
+        """Initialize a new TaskList."""
         pass
 
     def add_task(
@@ -160,9 +155,7 @@ class TaskList:
         Task.get_task_by_id(id).set_completion(100)
 
     def start_of_display(self):
-        """
-        Print a header to indicate the start of task display.
-        """
+        """Print a header to indicate the start of task display."""
         print()
         print("=====================")
         print("------- TASKS -------")
@@ -170,26 +163,20 @@ class TaskList:
         print()
 
     def end_of_display(self):
-        """
-        Print a footer to indicate the end of task display.
-        """
+        """Print a footer to indicate the end of task display."""
         print("=====================")
         print("-------- END --------")
         print("=====================")
 
     def display_tasks(self):
-        """
-        Display all tasks in the task list.
-        """
+        """Display all tasks in the task list."""
         self.start_of_display()
         for task in Task.get_all_tasks():
             print(task, "\n")
         self.end_of_display()
 
     def display_tasks_by_completion(self):
-        """
-        Display tasks organized by completion status.
-        """
+        """Display tasks organized by completion status."""
         self.start_of_display()
         print("---- TO DO TASKS ----")
         print()
@@ -248,15 +235,11 @@ class TaskList:
             )
 
     def save_tasks(self):
-        """
-        Save the tasks to a JSON file.
-        """
+        """Save the tasks to a JSON file."""
         tasks = self.convert_list_tasks_into_dict()
         write_json("../data/tasks.json", tasks)
 
     def load_tasks(self):
-        """
-        Load tasks from a JSON file.
-        """
+        """Load tasks from a JSON file."""
         tasks = read_json("../data/tasks.json")
         self.create_tasks_from_dict(tasks)
