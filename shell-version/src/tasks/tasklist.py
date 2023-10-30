@@ -238,7 +238,7 @@ class TaskList:
         """
         Save the tasks to a JSON file.
 
-        :param filepath: Path to the file to save the data 
+        :param filepath: Path to the file to save the data
             (default to data/tasks.json).
         :type filepath: str
         """
@@ -248,7 +248,7 @@ class TaskList:
     def load_tasks(self, filepath: str = "../data/tasks.json"):
         """Load tasks from a JSON file.
 
-        :param filepath: Path to the file to save the data 
+        :param filepath: Path to the file to save the data
             (default to data/tasks.json).
         :type filepath: str
         """

@@ -2,7 +2,6 @@ import datetime
 import itertools
 import json
 import os
-from pathlib import Path
 
 import pytest
 
@@ -86,7 +85,7 @@ def test_remove_task_by_id(task_list):
 
 def test_set_due_date_by_name(task_list):
     task_list.add_task("Task 1", "01/01/2025")
-    
+
     new_due_date = "02/02/2025"
     task_list.set_due_date_by_name("Task 1", new_due_date)
 
@@ -105,7 +104,9 @@ def test_set_due_date_by_id(task_list):
 
 
 def test_set_description_by_name(task_list):
-    task_list.add_task("Task 1", "01/01/2025", description="Initial description")
+    task_list.add_task(
+        "Task 1", "01/01/2025", description="Initial description"
+    )
 
     new_description = "Updated description"
     task_list.set_description_by_name("Task 1", new_description)
@@ -115,7 +116,9 @@ def test_set_description_by_name(task_list):
 
 
 def test_set_description_by_id(task_list):
-    task_list.add_task("Task 1", "01/01/2025", description="Initial description")
+    task_list.add_task(
+        "Task 1", "01/01/2025", description="Initial description"
+    )
 
     new_description = "Updated description"
     task_list.set_description_by_id(1, new_description)
