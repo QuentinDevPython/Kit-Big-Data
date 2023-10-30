@@ -1,1 +1,0 @@
-"""Initialize tasks app."""
