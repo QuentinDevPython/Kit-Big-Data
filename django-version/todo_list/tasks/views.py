@@ -1,9 +1,8 @@
 """Views for tasks."""
 
-# from django.shortcuts import render
+from django.shortcuts import render
 from django.http import HttpResponse
-
-
-def tasklist(request):
-    """Test view."""
-    return HttpResponse('To Do list')
+from django.views.generic.list import ListView
+from .models import Task
+class TaskList(ListView):
+    model = Task
