@@ -34,9 +34,7 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        """
-        Get the URL to redirect to after successful login.
-        """
+        """Get the URL to redirect to after successful login."""
         return reverse_lazy('tasks')
 
 
@@ -58,9 +56,7 @@ class TaskList(LoginRequiredMixin, ListView):
     template_name = 'your_template_name.html'  # Specify the template name
 
     def get_context_data(self, **kwargs):
-        """
-        Add additional context data to the view.
-        """
+        """Add additional context data to the view."""
         context = super().get_context_data(**kwargs)
         context['count'] = context['tasks'].filter(complete=False).count()
 
@@ -109,9 +105,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('tasks')
 
     def form_valid(self, form: forms.BaseModelForm) -> HttpResponse:
-        """
-        Validate and save the form for task creation.
-        """
+        """Validate and save the form for task creation."""
         form.instance.user = self.request.user
         return super(TaskCreate, self).form_valid(form)
 
