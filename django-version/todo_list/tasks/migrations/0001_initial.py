@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "title",
-                    models.CharField(blank=True, max_length=200,null=True), 
+                    models.CharField(blank=True, max_length=200, null=True),
                     ),
                 ("description", models.TextField(blank=True, null=True)),
                 ("complete", models.BooleanField(default=False)),
