@@ -51,7 +51,8 @@ def add_task(
 
 @click.command("rm-task")
 @click.option(
-    "--name", prompt="Task name (Required)", type=str, help="Name of the task to remove"
+    "--name", prompt="Task name (Required)", type=str,
+    help="Name of the task to remove"
 )
 def remove_task_by_name(name: str):
     """
@@ -67,7 +68,8 @@ def remove_task_by_name(name: str):
 
 @click.command("rm-task-id")
 @click.option(
-    "--id", prompt="Task id (Required)", type=int, help="Id of the task to remove"
+    "--id", prompt="Task id (Required)", type=int,
+    help="Id of the task to remove"
 )
 def remove_task_by_id(id: int):
     """
@@ -252,7 +254,8 @@ def complete_task_by_name(name: str):
 
 @click.command("complete-task-id")
 @click.option(
-    "--id", prompt="Task id (Required)", type=int, help="Id of the task to complete"
+    "--id", prompt="Task id (Required)", type=int,
+    help="Id of the task to complete"
 )
 def complete_task_by_id(id: int):
     """
