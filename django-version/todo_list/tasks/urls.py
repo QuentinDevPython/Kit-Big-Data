@@ -4,7 +4,7 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 from .views import (
-    TaskList, TaskDetail, TaskCreate, TaskUpdate, 
+    TaskList, TaskDetail, TaskCreate, TaskUpdate,
     DeleteView, CustomLoginView, TaskReorder
 )
 
