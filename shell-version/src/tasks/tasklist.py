@@ -234,12 +234,23 @@ class TaskList:
                 task["name"], due_date, task["description"], task["completion"]
             )
 
-    def save_tasks(self):
-        """Save the tasks to a JSON file."""
-        tasks = self.convert_list_tasks_into_dict()
-        write_json("../data/tasks.json", tasks)
+    def save_tasks(self, filepath: str = "../data/tasks.json"):
+        """
+        Save the tasks to a JSON file.
 
-    def load_tasks(self):
-        """Load tasks from a JSON file."""
-        tasks = read_json("../data/tasks.json")
+        :param filepath: Path to the file to save the data
+            (default to data/tasks.json).
+        :type filepath: str
+        """
+        tasks = self.convert_list_tasks_into_dict()
+        write_json(filepath, tasks)
+
+    def load_tasks(self, filepath: str = "../data/tasks.json"):
+        """Load tasks from a JSON file.
+
+        :param filepath: Path to the file to save the data
+            (default to data/tasks.json).
+        :type filepath: str
+        """
+        tasks = read_json(filepath)
         self.create_tasks_from_dict(tasks)

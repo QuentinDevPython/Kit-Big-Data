@@ -13,7 +13,7 @@ def read_json(filename: str) -> dict:
         represented as a dictionary.
     :rtype: dict
     """
-    with open(filename, "r+", encoding="utf8") as file:
+    with open(filename, "r+", encoding="utf-8") as file:
         data = json.load(file)
     return data
 
@@ -28,5 +28,5 @@ def write_json(filename: str, data: dict):
         represented as a dictionary.
     :type data: dict
     """
-    with open(filename, "w+", encoding="utf8") as file:
+    with open(filename, "w+", encoding="utf-8") as file:
         json.dump(data, file)
