@@ -1,1 +1,1 @@
-"""Init"""
+"""Initialize migrations."""

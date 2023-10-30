@@ -5,5 +5,5 @@ from django.http import HttpResponse
 
 
 def tasklist(request):
-    """Test view"""
+    """Test view."""
     return HttpResponse('To Do list')
