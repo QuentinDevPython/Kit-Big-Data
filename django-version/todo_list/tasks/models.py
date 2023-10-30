@@ -23,7 +23,8 @@ class Task(models.Model):
         ordering (list): Default order of tasks, sorted by 'complete' status.
     """
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True)
     # Establishes a one-to-many relationship between user and tasks.
     # models.CASCADE: if the user is deleted, his tasks are deleted.
 
