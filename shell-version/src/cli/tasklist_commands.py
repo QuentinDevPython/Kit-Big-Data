@@ -1,4 +1,4 @@
-"""Command-Line Interface (CLI) Module for Task Management"""
+"""This module contains CLI commands for managing tasks."""
 
 import click
 

@@ -7,7 +7,7 @@ import cli.tasklist_commands as tc
 
 @click.group()
 def main():
-    """Main command group for the Task List CLI."""
+    """Manage tasks group in the Task List CLI."""
     pass
 
 
