@@ -1,14 +1,56 @@
+"""This module defines the Task class for managing tasks."""
+
 import datetime
 import itertools
 
 
 class Task:
+    """
+    The `Task` class represents a task.
+
+    Example Usage:
+
+    .. code-block:: python
+
+        # Create a new task
+        task = Task(
+            "My task", datetime.datetime(2022, 1, 1),
+            "This is task 1", 50, "Project A"
+        )
+
+        # Set the completion percentage of the task
+        task1.set_completion(75)
+
+        # Get all tasks
+        all_tasks = Task.get_all_tasks()
+
+    Fields:
+
+    - id_task: A counter to generate unique task IDs.
+    - instances: A list to store all task instances.
+
+    """
+
     id_task = itertools.count()
     instances = []
 
     def __init__(
-        self, name: str, due_date: str, description: str = "", completion: int = 0
+        self, name: str, due_date: str, description: str = "",
+        completion: int = 0
     ):
+        """
+        Initialize a Task object.
+
+        :param name: The name of the task.
+        :type name: str
+        :param due_date: The due date of the task (in the format
+            'DD/MM/YYYY').
+        :type due_date: str
+        :param description: An optional description of the task.
+        :type description: str
+        :param completion: An optional completion percentage (0 to 100).
+        :type completion: int
+        """
         self.id = next(Task.id_task) + 1
         self.name = ""
         self.due_date = ""
@@ -18,7 +60,22 @@ class Task:
         self.create_task(name, due_date, description, completion)
         Task.instances.append(self)
 
-    def create_task(self, name: str, due_date: str, description: str, completion: int):
+    def create_task(
+        self, name: str, due_date: str, description: str, completion: int
+    ):
+        """
+        Create a task with the specified attributes threw class setters.
+
+        :param name: The name of the task.
+        :type name: str
+        :param due_date: The due date of the task (in the format
+            'DD/MM/YYYY').
+        :type due_date: str
+        :param description: An optional description of the task.
+        :type description: str
+        :param completion: An optional completion percentage (0 to 100).
+        :type completion: int
+        """
         self.set_name(name)
         self.set_due_date(due_date)
         self.set_description(description)
@@ -26,7 +83,7 @@ class Task:
 
     def control_variable_is_string(func):
         """
-        Decorator function for controlling if a variable is a string.
+        Decorate a function to control if a variable is a string.
 
         :param func: The function to be decorated.
         :type func: callable
@@ -37,14 +94,16 @@ class Task:
 
         def is_string(self, variable):
             if not isinstance(variable, str):
-                raise ValueError("Le paramètre doit être une chaîne de caractères.")
+                raise ValueError(
+                    "Le paramètre doit être une chaîne de caractères."
+                )
             return func(self, variable)
 
         return is_string
 
     def control_variable_is_integer(func):
         """
-        Decorator function for controlling if a variable is an integer.
+        Decorate a function to control if a variable is an integer.
 
         :param func: The function to be decorated.
         :type func: callable
@@ -62,9 +121,7 @@ class Task:
 
     def control_name_validity(func):
         """
-        Decorator function for controlling the validity of task names.
-
-        This decorator ensures that task names are not empty.
+        Decorate a function to control the validity of task names.
 
         :param func: The function to be decorated.
         :type func: callable
@@ -79,7 +136,8 @@ class Task:
             for task in Task.instances:
                 if task.name == name:
                     raise ValueError(
-                        "Cette tâche existe déjà. Veuillez spécifier un autre nom."
+                        "Cette tâche existe déjà. "
+                        "Veuillez spécifier un autre nom."
                     )
             return func(self, name)
 
@@ -89,7 +147,7 @@ class Task:
     @control_name_validity
     def set_name(self, name: str):
         """
-        Sets the name of the task.
+        Set the name of the task.
 
         :param name: The new name of the task.
         :type name: str
@@ -98,15 +156,17 @@ class Task:
 
     def control_date_validity(func):
         """
-        Decorator function for controlling the validity of due dates.
+        Decorate a function to control the validity of due dates.
 
-        This decorator ensures that due dates are in the format 'DD/MM/YYYY', and they are set to today or a future date.
+        This decorator ensures that due dates are in the format
+            'DD/MM/YYYY', and they are set to today or a future date.
 
         :param func: The function to be decorated.
         :type func: callable
         :return: The decorated function.
         :rtype: callable
-        :raises ValueError: If the date format is incorrect or if the date is not today or a future date.
+        :raises ValueError: If the date format is incorrect or if the
+            date is not today or a future date.
         """
 
         def set_due_date(self, due_date: str):
@@ -115,20 +175,25 @@ class Task:
                 raise ValueError("La date doit être de la forme 'JJ/MM/YYYY'")
             day, month, year = due_date.split("/")
             if not len(day) == 2:
-                raise ValueError("Le jour doit être de la forme 'JJ' (deux chiffres)")
+                raise ValueError(
+                    "Le jour doit être de la forme 'JJ' (deux chiffres)"
+                )
             if not len(month) == 2:
-                raise ValueError("Le mois doit être de la forme 'MM' (deux chiffres)")
+                raise ValueError(
+                    "Le mois doit être de la forme 'MM' (deux chiffres)"
+                )
             if not len(year) == 4:
                 raise ValueError(
                     "L'année doit être de la forme 'YYYY' (quatres chiffres)"
                 )
 
-            # Contrôler que la date est définie sur le jour d'aujourd'hui ou un jour ultérieur
+            # Contrôler que la date est le jour d'aujourd'hui (ou ultérieur)
             date = datetime.datetime(int(year), int(month), int(day)).date()
             today_date = datetime.datetime.now().date()
             if not date >= today_date:
                 raise ValueError(
-                    f"La date du jour doit être définie sur la date du jour ou une date future. Date : {due_date}"
+                    "La date du jour doit être définie sur la date du jour "
+                    f"ou une date future. Date : {due_date}"
                 )
 
             return func(self, due_date)
@@ -139,7 +204,7 @@ class Task:
     @control_date_validity
     def set_due_date(self, due_date: str):
         """
-        Sets the due date of the task.
+        Set the due date of the task.
 
         :param due_date: The new due date of the task.
         :type due_date: datetime
@@ -149,9 +214,7 @@ class Task:
 
     def control_description_validity(func):
         """
-        Decorator function for controlling the validity of task descriptions.
-
-        This decorator ensures that task descriptions do not exceed 100 characters in length.
+        Decorate a function to control the validity of task descriptions.
 
         :param func: The function to be decorated.
         :type func: callable
@@ -173,7 +236,7 @@ class Task:
     @control_description_validity
     def set_description(self, description: str):
         """
-        Sets the description of the task.
+        Set the description of the task.
 
         :param description: The new description of the task.
         :type description: str
@@ -182,15 +245,14 @@ class Task:
 
     def control_completion_validity(func):
         """
-        Decorator function for controlling the validity of completion percentage.
-
-        This decorator ensures that the completion percentage falls within the range of 0 to 100%.
+        Decorate a function to control the validity of completion percentage.
 
         :param func: The function to be decorated.
         :type func: callable
         :return: The decorated function.
         :rtype: callable
-        :raises ValueError: If the completion percentage is not in the range [0, 100].
+        :raises ValueError: If the completion percentage is not in the
+            range [0, 100].
         """
 
         def set_completion(self, completion: int):
@@ -206,7 +268,7 @@ class Task:
     @control_completion_validity
     def set_completion(self, completion: int):
         """
-        Sets the completion percentage of the task.
+        Set the completion percentage of the task.
 
         :param completion: The new completion percentage of the task.
         :type completion: int
@@ -216,7 +278,7 @@ class Task:
     @classmethod
     def get_all_tasks(cls):
         """
-        Returns a list of all the tasks.
+        Return a list of all the tasks.
 
         :return: A list of all tasks.
         :rtype: List[Task]
@@ -226,7 +288,7 @@ class Task:
     @classmethod
     def get_todo_tasks(cls):
         """
-        Get a list of all TODO tasks within the class's instances.
+        Get a list of all TODO tasks.
 
         :return: A list of Task instances with a completion level of 0.
         :rtype: List[Task]
@@ -235,6 +297,13 @@ class Task:
 
     @classmethod
     def get_doing_tasks(cls):
+        """
+        Get a list of tasks that are in progress.
+
+        :return: A list of Task instances with a completion level
+            between 0 and 100.
+        :rtype: List[Task]
+        """
         return list(
             filter(
                 lambda task: (task.completion > 0) and (task.completion < 100),
@@ -244,6 +313,12 @@ class Task:
 
     @classmethod
     def get_done_tasks(cls):
+        """
+        Get a list of tasks that are marked as completed.
+
+        :return: A list of Task instances with a completion level of 100.
+        :rtype: List[Task]
+        """
         return list(filter(lambda task: task.completion == 100, cls.instances))
 
     @classmethod
@@ -253,10 +328,8 @@ class Task:
 
         :param name: The name of the task to retrieve.
         :type name: str
-
         :return: The task with the specified name.
         :rtype: Task
-
         :raises IndexError: If no task with the given name is found.
         """
         return list(filter(lambda task: task.name == name, cls.instances))[0]
@@ -268,13 +341,10 @@ class Task:
 
         :param id: The unique identifier of the task to retrieve.
         :type id: int
-
         :return: The task with the specified ID.
         :rtype: Task
-
         :raises IndexError: If no task with the given ID is found.
         """
-
         return list(filter(lambda task: task.id == id, cls.instances))[0]
 
     @classmethod
@@ -284,7 +354,6 @@ class Task:
 
         :param task: The task object to remove.
         :type task: Task
-
         :raises ValueError: If the task is not in the list of tasks.
         """
         cls.instances.remove(task)
@@ -292,18 +361,26 @@ class Task:
 
     def __repr__(self):
         """
-        Returns a string representation of the task.
+        Return a string representation of the task.
 
         :return: A string representation of the task.
         :rtype: str
         """
-        return f"Tâche {self.id} - {self.name}\n=> A faire pour le {self.due_date.day}/{self.due_date.month}/{self.due_date.year}\n=> Avancée : {self.completion}%"
+        return (
+            f"Tâche {self.id} - {self.name}\n=> A faire pour le "
+            f"{self.due_date.day}/{self.due_date.month}/{self.due_date.year}"
+            f"\n=> Avancée : {self.completion}%"
+        )
 
     def __str__(self):
         """
-        Returns a string representation of the task.
+        Return a string representation of the task.
 
         :return: A string representation of the task.
         :rtype: str
         """
-        return f"Tâche {self.id} - {self.name}\n=> A faire pour le {self.due_date.day}/{self.due_date.month}/{self.due_date.year}\n=> Avancée : {self.completion}%"
+        return (
+            f"Tâche {self.id} - {self.name}\n=> A faire pour le "
+            f"{self.due_date.day}/{self.due_date.month}/{self.due_date.year}"
+            f"\n=> Avancée : {self.completion}%"
+        )
