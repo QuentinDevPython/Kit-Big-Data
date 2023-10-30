@@ -29,8 +29,9 @@ def test_write_json(json_file_2):
     data_to_write = {"key2": "value2"}
     write_json(json_file_2, data_to_write)
 
-    with open(json_file_2, "r", encoding="utf8") as file:
+    with open(json_file_2, "r+", encoding="utf-8") as file:
         data = json.load(file)
+
     expected_data = data_to_write
 
     assert data == expected_data
