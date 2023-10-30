@@ -18,7 +18,6 @@ class Task(models.Model):
 
     Methods:
         __str__(): A string representation of the task, returns the title.
-
     Meta:
         ordering (list): Default order of tasks, sorted by 'complete' status.
     """
