@@ -24,8 +24,8 @@ class Task(models.Model):
     """
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    # Establishes a one-to-many relationship where a user can have multiple tasks.
-    # The `models.CASCADE` ensures that if the user is deleted, their tasks are deleted.
+    # Establishes a one-to-many relationship between user and tasks.
+    # models.CASCADE: if the user is deleted, his tasks are deleted.
 
     title = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(null=True, blank=True)
