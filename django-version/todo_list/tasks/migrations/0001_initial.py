@@ -7,7 +7,7 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
     """Migration class."""
-    
+
     initial = True
 
     dependencies = [
@@ -28,8 +28,9 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "title",
-                    models.CharField(blank=True, max_length=200, null=True)),
+                    "title", 
+                    models.CharField(blank=True, max_length=200, null=True),
+                    ),
                 ("description", models.TextField(blank=True, null=True)),
                 ("complete", models.BooleanField(default=False)),
                 ("created", models.DateTimeField(auto_now_add=True)),
