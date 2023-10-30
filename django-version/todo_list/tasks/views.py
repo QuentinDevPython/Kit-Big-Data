@@ -7,10 +7,6 @@ from .models import Task
 
 
 class TaskList(ListView):
-    """_summary_
-
-    Args:
-        ListView (_type_): _description_
-    """
+    """class tasklist."""
 
     model = Task
