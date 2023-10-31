@@ -1,5 +1,8 @@
 """This module provides a TaskList class to manage a list of tasks."""
 
+from pathlib import Path
+
+from src.logger import logger
 from src.tasks.task import Task
 from src.utils import read_json, write_json
 
@@ -199,6 +202,7 @@ class TaskList:
         :return: A dictionary representation of the tasks.
         :rtype: dict
         """
+        logger.debug("Converting all tasks into dict")
         tasks = {}
         for task in Task.get_all_tasks():
             tasks[task.id] = {
@@ -218,6 +222,7 @@ class TaskList:
         :param tasks: A dictionary containing task data.
         :type tasks: dict
         """
+        logger.debug("Creating all tasks from dict")
         for _, task in tasks.items():
             if len(str(task["due_day"])) == 1:
                 due_day = f"0{task['due_day']}"
@@ -234,7 +239,10 @@ class TaskList:
                 task["name"], due_date, task["description"], task["completion"]
             )
 
-    def save_tasks(self, filepath: str = "../data/tasks.json"):
+    def save_tasks(
+        self,
+        filepath: str = Path(__file__).parent.parent / "data" / "tasks.json"
+    ):
         """
         Save the tasks to a JSON file.
 
@@ -243,14 +251,20 @@ class TaskList:
         :type filepath: str
         """
         tasks = self.convert_list_tasks_into_dict()
+        logger.debug("Saving all tasks into a JSON file")
         write_json(filepath, tasks)
 
-    def load_tasks(self, filepath: str = "../data/tasks.json"):
+    def load_tasks(
+        self,
+        filepath: str = Path(__file__).parent.parent / "data" / "tasks.json"
+    ):
         """Load tasks from a JSON file.
 
         :param filepath: Path to the file to save the data
             (default to data/tasks.json).
         :type filepath: str
         """
+        logger.debug("Loading all tasks from a JSON file")
         tasks = read_json(filepath)
-        self.create_tasks_from_dict(tasks)
+        if len(tasks) > 0:
+            self.create_tasks_from_dict(tasks)

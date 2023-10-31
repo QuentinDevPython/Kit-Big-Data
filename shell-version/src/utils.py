@@ -1,6 +1,7 @@
 """Utility functions."""
 
 import json
+from pathlib import Path
 
 
 def read_json(filename: str) -> dict:
@@ -13,6 +14,12 @@ def read_json(filename: str) -> dict:
         represented as a dictionary.
     :rtype: dict
     """
+    if not Path(Path(__file__).parent / "data/").exists():
+        Path.mkdir(Path(__file__).parent / "data/")
+    if not Path(Path(__file__).parent / "data" / "tasks.json").exists():
+        Path.touch(Path(__file__).parent / "data" / "tasks.json")
+        data = {}
+        write_json(Path(__file__).parent / "data" / "tasks.json", data)
     with open(filename, "r+", encoding="utf-8") as file:
         data = json.load(file)
     return data
