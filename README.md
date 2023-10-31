@@ -14,11 +14,11 @@ We created two versions :
 
 We also implemented loggers to keep track of user actions and a Sphinx documentation (in both versions).
 
-<img src="https://github.com/QuentinDevPython/Kit-Big-Data/blob/dev/images/sphinx_doc.png" width="500" height="320" />
+<img src="https://github.com/QuentinDevPython/Kit-Big-Data/blob/dev/images/sphinx_doc.png" width="500" height="500" />
 
 ## To access the project
 
-First of all, you have to clone the repository:
+First of all, you have to clone the repository and access to the project:
 
 ```shell
 git clone https://github.com/QuentinDevPython/Kit-Big-Data.git
@@ -29,10 +29,105 @@ cd Kit-Big-Data
 
 ### Setup
 
+For the shell version, you only need to install the dependies in the requirements.txt file:
+
 ```shell
 pip install -r requirements.txt
 ```
 
+### Accessing the app
+
+Once installed, you can access the dedicated package:
+
+```shell
+cd shell-version
+```
+
+### Features implemented
+
+You can know manage your todo list by executing CLI commands in the shell.
+
+All the information is saved in a JSON file and will be loaded for each command.
+
+For each command, a menu will also be displayed, asking you for some necessary information to fill.
+
+#### Add a task
+
+```shell
+python src/main.py add-task
+```
+
+#### Remove a task (by name or id)
+
+```shell
+python src/main.py rm-task
+```
+
+or
+
+```shell
+python src/main.py rm-task-id
+```
+
+#### Mark a task as completed (by name or id)
+
+```shell
+python src/main.py complete-task
+```
+
+or
+
+```shell
+python src/main.py complete-task-id
+```
+
+#### Set the percentage of completed task (by name or id)
+
+```shell
+python src/main.py set-completion-task
+```
+
+or
+
+```shell
+python src/main.py set-completion-task-id
+```
+
+#### Set the due date of the task (by name or id)
+
+```shell
+python src/main.py set-date-task  
+```
+
+or
+
+```shell
+python src/main.py set-date-task-id
+```
+
+#### Set the description of the task (by name or id)
+
+```shell
+python src/main.py set-description-task 
+```
+
+or
+
+```shell
+python src/main.py set-description-task-id
+```
+
+#### Display all the tasks
+
+```shell
+python src/main.py display-task
+```
+
+#### Display all the tasks in a TODO list
+
+```shell
+python src/main.py display-todo
+```
 
 ## Django version
 
@@ -69,6 +164,7 @@ If you haven't downloaded Docker yet, please follow the steps through this link:
 Then, you can setup the needed Docker container by doing:
 
 ```shell
+cd django-version
 docker-compose up
 ```
 

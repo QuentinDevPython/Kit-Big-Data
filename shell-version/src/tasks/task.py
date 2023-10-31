@@ -3,7 +3,7 @@
 import datetime
 import itertools
 
-from src.logger import logger
+from logger import logger
 
 
 class Task:

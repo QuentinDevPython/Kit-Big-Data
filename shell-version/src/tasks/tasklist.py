@@ -2,9 +2,9 @@
 
 from pathlib import Path
 
-from src.logger import logger
-from src.tasks.task import Task
-from src.utils import read_json, write_json
+from logger import logger
+from tasks.task import Task
+from utils import read_json, write_json
 
 
 class TaskList:
