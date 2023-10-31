@@ -1,5 +1,7 @@
 """This module provides a TaskList class to manage a list of tasks."""
 
+from pathlib import Path
+
 from src.logger import logger
 from src.tasks.task import Task
 from src.utils import read_json, write_json
@@ -237,7 +239,10 @@ class TaskList:
                 task["name"], due_date, task["description"], task["completion"]
             )
 
-    def save_tasks(self, filepath: str = "src/data/tasks.json"):
+    def save_tasks(
+        self, 
+        filepath: str = Path(__file__).parent.parent / "data" / "tasks.json"
+    ):
         """
         Save the tasks to a JSON file.
 
@@ -249,7 +254,10 @@ class TaskList:
         logger.debug("Saving all tasks into a JSON file")
         write_json(filepath, tasks)
 
-    def load_tasks(self, filepath: str = "src/data/tasks.json"):
+    def load_tasks(
+        self,
+        filepath: str = Path(__file__).parent.parent / "data" / "tasks.json"
+    ):
         """Load tasks from a JSON file.
 
         :param filepath: Path to the file to save the data
