@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from .models import Task
 from .forms import PositionForm
 
+
 class TaskModelTestCase(TestCase):
     """Test case for the Task model."""
 
@@ -18,7 +19,7 @@ class TaskModelTestCase(TestCase):
     def test_task_creation(self):
         """Test creating a task instance."""
         task = Task.objects.create(
-            user=self.user, title="Test Task", 
+            user=self.user, title="Test Task",
             description="Description", complete=False, due_date="2023-12-31"
             )
         self.assertEqual(task.title, "Test Task")
@@ -34,16 +35,20 @@ class TaskModelTestCase(TestCase):
 
     def test_task_ordering(self):
         """Test the ordering of tasks."""
-        task1 = Task.objects.create(user=self.user, title="Task 1", complete=False)
-        task2 = Task.objects.create(user=self.user, title="Task 2", complete=True)
+        task1 = Task.objects.create(
+            user=self.user, title="Task 1", complete=False
+            )
+        task2 = Task.objects.create(
+            user=self.user, title="Task 2", complete=True
+            )
 
         tasks = Task.objects.all()
         self.assertEqual(tasks[0], task1)  # Uncompleted tasks come first
-        self.assertNotEqual(tasks[0], task2) # completed tasks are put last
+        self.assertNotEqual(tasks[0], task2)  # completed tasks are put last
 
     def test_task_user_deletion(self):
         """Test user deletion and associated task deletion."""
-        task = Task.objects.create(user=self.user, title="Task to be deleted")
+        #task = Task.objects.create(user=self.user, title="to be deleted")
         user_id = self.user.id
         self.user.delete()  # Deleting the user should also delete associated tasks
         task_exists = Task.objects.filter(user_id=user_id).exists()
@@ -56,6 +61,7 @@ class TaskModelTestCase(TestCase):
         self.assertEqual(task.description, None)
         self.assertFalse(task.complete)
         self.assertEqual(task.due_date, None)
+
 
 class TaskViewsTestCase(TestCase):
     """Test case for views related to tasks."""
@@ -96,22 +102,27 @@ class TaskViewsTestCase(TestCase):
     def test_task_delete_view(self):
         """Test the task delete view."""
         self.client.login(username="testuser", password="testpassword")
-        response = self.client.get(reverse("task-delete", args=[self.task.id]))
+        response = self.client.get(
+            reverse("task-delete", args=[self.task.id])
+            )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tasks/task_confirm_delete.html")
+
 
 class TaskFormTestCase(TestCase):
     """Test case for the PositionForm form."""
 
     def setUp(self):
         """Set up test data for the form tests."""
-        self.user = User.objects.create_user(username="testuser", password="testpassword")
+        self.user = User.objects.create_user(
+            username="testuser", password="testpassword")
 
     def test_position_form_valid(self):
         """Test a valid PositionForm instance."""
         form_data = {"position": "1,2,3"}
         form = PositionForm(data=form_data)
         self.assertTrue(form.is_valid())
+
 
 class CustomLoginViewTestCase(TestCase):
     """Test case for the CustomLoginView view."""
