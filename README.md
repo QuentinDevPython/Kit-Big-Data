@@ -51,8 +51,11 @@ docker-compose up
 
 When your server is running, you can connect to the ```localhost:8000``` on your browser.
 
+### Features implemented
 
+#### Login
 
+<img src="https://github.com/QuentinDevPython/Kit-Big-Data/blob/dev/images/login_page.png" width="500" height="320" />
 
 Voici une vue d'ensemble de l'application :   
 
