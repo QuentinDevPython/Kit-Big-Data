@@ -180,7 +180,7 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
 
             # Log a debug message before updating
             log_message = (
-                f"TaskUpdate form valid - Task: {task}, " 
+                f"TaskUpdate form valid - Task: {task} , " 
                 "Form Data: {form.cleaned_data}"
             )
             debug_logger.debug(log_message)
@@ -251,4 +251,4 @@ class TaskReorder(View):
         except Exception as e:
             # Log the error and critical message
             error_logger.error("Error during task reordering: %s", str(e))
-            return HttpResponseServerError()  
+            return HttpResponseServerError()
