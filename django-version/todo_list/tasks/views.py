@@ -212,6 +212,7 @@ class DeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('tasks')
 
     def form_valid(self, form):
+        """Form valid method."""
         try:
             # Get the task to be deleted
             task = self.get_object()
@@ -241,6 +242,7 @@ class TaskReorder(View):
     """
 
     def post(self, request):
+        """Post method ."""
         try:
             form = PositionForm(request.POST)
             if form.is_valid():
