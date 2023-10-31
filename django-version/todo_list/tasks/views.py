@@ -53,7 +53,7 @@ class TaskList(LoginRequiredMixin, ListView):
 
     model = Task
     context_object_name = 'tasks'
-    template_name = 'your_template_name.html'  # Specify the template name
+    template_name = 'tasks/task_list.html'
 
     def get_context_data(self, **kwargs):
         """Add additional context data to the view."""
