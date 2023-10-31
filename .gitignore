@@ -1,0 +1,6 @@
+__pycache__
+.pytest*
+
+.DS_*
+
+db*
