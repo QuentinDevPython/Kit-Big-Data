@@ -240,7 +240,7 @@ class TaskList:
             )
 
     def save_tasks(
-        self, 
+        self,
         filepath: str = Path(__file__).parent.parent / "data" / "tasks.json"
     ):
         """
