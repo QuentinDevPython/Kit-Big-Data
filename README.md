@@ -120,7 +120,7 @@ python -m src set-description-task-id
 #### Display all the tasks
 
 ```shell
-python -m src display-task
+python -m src display-tasks
 ```
 
 #### Display all the tasks in a TODO list
@@ -141,7 +141,7 @@ There are two ways to launch the app:
 
 ```shell
 cd django-version/todo_list
-pip install -r docker-setup.txt
+pip install -r docker_setup.txt
 ```
 
 Migrate databases:
@@ -149,6 +149,12 @@ Migrate databases:
 ```shell
 python manage.py makemigrations
 python manage.py migrate
+```
+
+Create user:
+
+```shell
+python manage.py createsuperuser
 ```
 
 To launch the server:
@@ -164,7 +170,7 @@ If you haven't downloaded Docker yet, please follow the steps through this link:
 Then, you can setup the needed Docker container by doing:
 
 ```shell
-cd django-version
+cd django-version/todo_list
 docker-compose up
 ```
 
