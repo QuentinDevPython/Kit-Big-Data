@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-import logging
 import os
 from pathlib import Path
 
@@ -18,10 +17,10 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Set the path for log files
-LOGGING_DIR = os.path.join(BASE_DIR, 'logs')  
+LOGGING_DIR = os.path.join(BASE_DIR, 'logs')
 if not os.path.exists(LOGGING_DIR):
     os.makedirs(LOGGING_DIR)
-    
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -156,9 +155,6 @@ LOGGING = {
         },
     },
 }
-
-
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

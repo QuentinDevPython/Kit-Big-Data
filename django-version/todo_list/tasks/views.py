@@ -40,27 +40,31 @@ class CustomLoginView(LoginView):
     def get_success_url(self):
         """Get the URL to redirect to after successful login."""
         url = reverse_lazy('tasks')
-        
+
         # Log a debug message
-        log_message = f"Successful login for user: {self.request.user.username}"
+        log_message = (
+            f"Successful login for user: {self.request.user.username}")
         debug_logger.debug(log_message)
-        
+
         return url
 
     def form_valid(self, form):
         # You can add more logging here as needed
         log_message = f"User '{self.request.user}' has logged in."
         debug_logger.debug(log_message)
-        
+
         return super().form_valid(form)
 
     def form_invalid(self, form):
         # You can log errors here as needed
-        log_message = f"Failed login attempt for user: {form.cleaned_data['username']}"
+        log_message = (
+            f"Failed login attempt for user: "
+            "{form.cleaned_data['username']}"
+        )
         error_logger.error(log_message)
-        
+
         return super().form_invalid(form)
-    
+
 
 class TaskList(LoginRequiredMixin, ListView):
     """
@@ -91,12 +95,14 @@ class TaskList(LoginRequiredMixin, ListView):
                 )
 
                 # Log a debug message for search
-                debug_logger.debug("TaskList search result for input '%s': %s", search_input, context['tasks'])
+                debug_logger.debug(
+                    "TaskList search result for input '%s': %s"
+                    , search_input, context['tasks'])
 
             context['search_input'] = search_input
         except Exception as e:
             # Log the error and critical message
-            error_logger.error("An error occurred during TaskList view: %s", str(e))
+            error_logger.error("Error during TaskList view: %s", str(e))
 
         return context
 
@@ -114,6 +120,7 @@ class TaskDetail(LoginRequiredMixin, DetailView):
     model = Task
     context_object_name = 'task'
     template_name = 'tasks/task.html'
+
 
 class TaskCreate(LoginRequiredMixin, CreateView):
     """
@@ -140,13 +147,17 @@ class TaskCreate(LoginRequiredMixin, CreateView):
             form.instance.user = self.request.user
 
             # Log a debug message
-            log_message = f"TaskCreate form valid - User: {self.request.user}, Form Data: {form.cleaned_data}"
+            log_message = (
+                f"TaskCreate form valid - User: {self.request.user}, "
+                "Form Data: {form.cleaned_data}"
+            )
             debug_logger.debug(log_message)
             return super(TaskCreate, self).form_valid(form)
         except Exception as e:
             # Log the error and critical message
-            error_logger.error("An error occurred during task creation: %s", str(e))
-            return HttpResponseServerError()  # Or return an appropriate response
+            error_logger.error("Error during task creation: %s", str(e))
+            return HttpResponseServerError()  
+
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     """
@@ -168,15 +179,18 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
             task = self.get_object()
 
             # Log a debug message before updating
-            log_message = f"TaskUpdate form valid - Task: {task}, Form Data: {form.cleaned_data}"
+            log_message = (
+                f"TaskUpdate form valid - Task: {task}, " 
+                "Form Data: {form.cleaned_data}"
+            )
             debug_logger.debug(log_message)
 
             # Perform the form submission
             return super(TaskUpdate, self).form_valid(form)
         except Exception as e:
             # Log the error and critical message if an error occurs
-            error_logger.error("An error occurred during task update: %s", str(e))
-            return HttpResponseServerError()  # Or return an appropriate response
+            error_logger.error("Error during task update: %s", str(e))
+            return HttpResponseServerError()
 
 
 class DeleteView(LoginRequiredMixin, DeleteView):
@@ -205,14 +219,13 @@ class DeleteView(LoginRequiredMixin, DeleteView):
             task.delete()
 
             # Log a success message after deletion
-            debug_logger.debug("TaskDelete task deleted successfully: %s", task)
+            debug_logger.debug("Task deleted successfully: %s", task)
 
             return redirect(self.success_url)
         except Exception as e:
             # Log the error and critical message if an error occurs
-            error_logger.error("An error occurred during task deletion: %s", str(e))
-            return HttpResponseServerError()  # Or return an appropriate response
-
+            error_logger.error("Error during task deletion: %s", str(e))
+            return HttpResponseServerError()
 
 
 class TaskReorder(View):
@@ -237,5 +250,5 @@ class TaskReorder(View):
                 return redirect(reverse_lazy('tasks'))
         except Exception as e:
             # Log the error and critical message
-            error_logger.error("An error occurred during task reordering: %s", str(e))
-            return HttpResponseServerError()  # Or return an appropriate response
+            error_logger.error("Error during task reordering: %s", str(e))
+            return HttpResponseServerError()  
