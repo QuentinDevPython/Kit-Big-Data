@@ -3,6 +3,8 @@
 import datetime
 import itertools
 
+from logger import logger
+
 
 class Task:
     """
@@ -81,6 +83,11 @@ class Task:
         self.set_description(description)
         self.set_completion(completion)
 
+        logger.debug(
+            f"Create task : ('Name': {name}, 'Due_date': {due_date},"
+            f"'description': {description}, 'completion': {completion}"
+        )
+
     def control_variable_is_string(func):
         """
         Decorate a function to control if a variable is a string.
@@ -94,6 +101,7 @@ class Task:
 
         def is_string(self, variable):
             if not isinstance(variable, str):
+                logger.error(f"{variable} should be of type string")
                 raise ValueError(
                     "Le paramètre doit être une chaîne de caractères."
                 )
@@ -114,6 +122,7 @@ class Task:
 
         def is_integer(self, variable):
             if not isinstance(variable, int):
+                logger.error(f"{variable} should be of type int")
                 raise ValueError("Le paramètre doit être un entier.")
             return func(self, variable)
 
@@ -135,6 +144,7 @@ class Task:
                 raise ValueError("Le nom ne peut pas être vide.")
             for task in Task.instances:
                 if task.name == name:
+                    logger.error(f"{name} should not be an empty string")
                     raise ValueError(
                         "Cette tâche existe déjà. "
                         "Veuillez spécifier un autre nom."
@@ -152,6 +162,7 @@ class Task:
         :param name: The new name of the task.
         :type name: str
         """
+        logger.debug(f"Setting task name to {name}")
         self.name = name
 
     def control_date_validity(func):
@@ -170,7 +181,7 @@ class Task:
         """
 
         def set_due_date(self, due_date: str):
-            # Contrôler le format de la date
+            # Control date format
             if not len(due_date.split("/")) == 3:
                 raise ValueError("La date doit être de la forme 'JJ/MM/YYYY'")
             day, month, year = due_date.split("/")
@@ -187,10 +198,11 @@ class Task:
                     "L'année doit être de la forme 'YYYY' (quatres chiffres)"
                 )
 
-            # Contrôler que la date est le jour d'aujourd'hui (ou ultérieur)
+            # Control that it's a futur day
             date = datetime.datetime(int(year), int(month), int(day)).date()
             today_date = datetime.datetime.now().date()
             if not date >= today_date:
+                logger.error(f"{date} should be a futur day")
                 raise ValueError(
                     "La date du jour doit être définie sur la date du jour "
                     f"ou une date future. Date : {due_date}"
@@ -209,6 +221,7 @@ class Task:
         :param due_date: The new due date of the task.
         :type due_date: datetime
         """
+        logger.debug(f"Setting task due_date to {due_date}")
         day, month, year = due_date.split("/")
         self.due_date = datetime.datetime(int(year), int(month), int(day))
 
@@ -225,6 +238,9 @@ class Task:
 
         def set_description(self, description: str):
             if not len(description) <= 100:
+                logger.error(
+                    f"{description} should have no more than 100 characters"
+                )
                 raise ValueError(
                     "La description d'une tâche est limitée à 100 caractères"
                 )
@@ -241,6 +257,7 @@ class Task:
         :param description: The new description of the task.
         :type description: str
         """
+        logger.debug(f"Setting task description to {description}")
         self.description = description
 
     def control_completion_validity(func):
@@ -257,6 +274,7 @@ class Task:
 
         def set_completion(self, completion: int):
             if (not completion >= 0) or (not completion <= 100):
+                logger.error(f"{completion} should be between 0 and 100")
                 raise ValueError(
                     "Le taux de complétion doit être compris entre 0 et 100"
                 )
@@ -273,6 +291,7 @@ class Task:
         :param completion: The new completion percentage of the task.
         :type completion: int
         """
+        logger.debug(f"Setting task completion to {completion}")
         self.completion = completion
 
     @classmethod
@@ -356,6 +375,12 @@ class Task:
         :type task: Task
         :raises ValueError: If the task is not in the list of tasks.
         """
+        logger.debug(
+            f"Remove task : ('Name': {task.name},"
+            f"'Due_date': {task.due_date},"
+            f"'description': {task.description},"
+            f"'completion': {task.completion}"
+        )
         cls.instances.remove(task)
         del task
 

@@ -2,7 +2,7 @@
 
 import click
 
-import src.cli.tasklist_commands as tc
+import cli.tasklist_commands as tc
 
 
 @click.group()

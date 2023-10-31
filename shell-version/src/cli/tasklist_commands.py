@@ -2,7 +2,7 @@
 
 import click
 
-from src.tasks.tasklist import TaskList
+from tasks.tasklist import TaskList
 
 
 task_list = TaskList()
