@@ -58,8 +58,8 @@ class CustomLoginView(LoginView):
     def form_invalid(self, form):
         # You can log errors here as needed
         log_message = (
-            f"Failed login attempt for user: "
-            "{form.cleaned_data['username']}"
+            "Failed login attempt for user: "
+            f"{form.cleaned_data['username']}"
         )
         error_logger.error(log_message)
 
@@ -96,8 +96,8 @@ class TaskList(LoginRequiredMixin, ListView):
 
                 # Log a debug message for search
                 debug_logger.debug(
-                    "TaskList search result for input '%s': %s"
-                    , search_input, context['tasks'])
+                    "TaskList search result for input '%s': %s",
+                    search_input, context['tasks'])
 
             context['search_input'] = search_input
         except Exception as e:
@@ -156,7 +156,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
         except Exception as e:
             # Log the error and critical message
             error_logger.error("Error during task creation: %s", str(e))
-            return HttpResponseServerError()  
+            return HttpResponseServerError()
 
 
 class TaskUpdate(LoginRequiredMixin, UpdateView):
@@ -180,7 +180,7 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
 
             # Log a debug message before updating
             log_message = (
-                f"TaskUpdate form valid - Task: {task} , " 
+                f"TaskUpdate form valid - Task: {task} , "
                 "Form Data: {form.cleaned_data}"
             )
             debug_logger.debug(log_message)
