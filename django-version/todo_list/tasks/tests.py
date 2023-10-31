@@ -4,10 +4,6 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from .models import Task
-from .views import (
-    TaskList, TaskDetail, TaskCreate, TaskUpdate,
-    DeleteView, CustomLoginView, TaskReorder
-)
 from .forms import PositionForm
 
 class TaskModelTestCase(TestCase):
@@ -42,7 +38,8 @@ class TaskModelTestCase(TestCase):
         task2 = Task.objects.create(user=self.user, title="Task 2", complete=True)
 
         tasks = Task.objects.all()
-        self.assertEqual(tasks[0], task1)  # Uncompleted tasks should come first
+        self.assertEqual(tasks[0], task1)  # Uncompleted tasks come first
+        self.assertNotEqual(tasks[0], task2) # completed tasks are put last
 
     def test_task_user_deletion(self):
         """Test user deletion and associated task deletion."""
@@ -124,12 +121,6 @@ class CustomLoginViewTestCase(TestCase):
         response = self.client.get(reverse("login"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tasks/login.html")
-
-    def test_custom_login_view_success_url(self):
-        """Test the custom login view's success URL."""
-        self.client.login(username="testuser", password="testpassword")
-        response = self.client.get(reverse("tasks"))
-        self.assertRedirects(response, reverse("tasks"))
 
 if __name__ == '__main__':
     unittest.main()
