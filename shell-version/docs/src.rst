@@ -13,10 +13,10 @@ Subpackages
 Submodules
 ----------
 
-src.main module
+src.__main__ module
 ---------------
 
-.. automodule:: src.main
+.. automodule:: src.__main__
    :members:
    :undoc-members:
    :show-inheritance:

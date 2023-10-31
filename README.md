@@ -54,79 +54,79 @@ For each command, a menu will also be displayed, asking you for some necessary i
 #### Add a task
 
 ```shell
-python src/main.py add-task
+python -m src add-task
 ```
 
 #### Remove a task (by name or id)
 
 ```shell
-python src/main.py rm-task
+python -m src rm-task
 ```
 
 or
 
 ```shell
-python src/main.py rm-task-id
+python -m src rm-task-id
 ```
 
 #### Mark a task as completed (by name or id)
 
 ```shell
-python src/main.py complete-task
+python -m src complete-task
 ```
 
 or
 
 ```shell
-python src/main.py complete-task-id
+python -m src complete-task-id
 ```
 
 #### Set the percentage of completed task (by name or id)
 
 ```shell
-python src/main.py set-completion-task
+python -m src set-completion-task
 ```
 
 or
 
 ```shell
-python src/main.py set-completion-task-id
+python -m src set-completion-task-id
 ```
 
 #### Set the due date of the task (by name or id)
 
 ```shell
-python src/main.py set-date-task  
+python -m src set-date-task  
 ```
 
 or
 
 ```shell
-python src/main.py set-date-task-id
+python -m src set-date-task-id
 ```
 
 #### Set the description of the task (by name or id)
 
 ```shell
-python src/main.py set-description-task 
+python -m src set-description-task 
 ```
 
 or
 
 ```shell
-python src/main.py set-description-task-id
+python -m src set-description-task-id
 ```
 
 #### Display all the tasks
 
 ```shell
-python src/main.py display-task
+python -m src display-task
 ```
 
 #### Display all the tasks in a TODO list
 
 ```shell
-python src/main.py display-todo
+python -m src display-todo
 ```
 
 ## Django version

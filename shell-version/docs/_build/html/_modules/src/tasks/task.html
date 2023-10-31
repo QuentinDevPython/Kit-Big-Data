@@ -74,6 +74,8 @@
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 
+<span class="kn">from</span> <span class="nn">src.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+
 
 <div class="viewcode-block" id="Task">
 <a class="viewcode-back" href="../../../src.tasks.html#src.tasks.task.Task">[docs]</a>
@@ -154,7 +156,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">set_name</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_due_date</span><span class="p">(</span><span class="n">due_date</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">set_description</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set_completion</span><span class="p">(</span><span class="n">completion</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_completion</span><span class="p">(</span><span class="n">completion</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Create task : (&#39;Name&#39;: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">, &#39;Due_date&#39;: </span><span class="si">{</span><span class="n">due_date</span><span class="si">}</span><span class="s2">,&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;&#39;description&#39;: </span><span class="si">{</span><span class="n">description</span><span class="si">}</span><span class="s2">, &#39;completion&#39;: </span><span class="si">{</span><span class="n">completion</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Task.control_variable_is_string">
@@ -172,6 +179,7 @@
 
         <span class="k">def</span> <span class="nf">is_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">variable</span><span class="si">}</span><span class="s2"> should be of type string&quot;</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">&quot;Le paramètre doit être une chaîne de caractères.&quot;</span>
                 <span class="p">)</span>
@@ -195,6 +203,7 @@
 
         <span class="k">def</span> <span class="nf">is_integer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">variable</span><span class="si">}</span><span class="s2"> should be of type int&quot;</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Le paramètre doit être un entier.&quot;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">)</span>
 
@@ -219,6 +228,7 @@
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Le nom ne peut pas être vide.&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">Task</span><span class="o">.</span><span class="n">instances</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> should not be an empty string&quot;</span><span class="p">)</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                         <span class="s2">&quot;Cette tâche existe déjà. &quot;</span>
                         <span class="s2">&quot;Veuillez spécifier un autre nom.&quot;</span>
@@ -239,6 +249,7 @@
 <span class="sd">        :param name: The new name of the task.</span>
 <span class="sd">        :type name: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting task name to </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span></div>
 
 
@@ -260,7 +271,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">def</span> <span class="nf">set_due_date</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">due_date</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="c1"># Contrôler le format de la date</span>
+            <span class="c1"># Control date format</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">due_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">))</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;La date doit être de la forme &#39;JJ/MM/YYYY&#39;&quot;</span><span class="p">)</span>
             <span class="n">day</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">year</span> <span class="o">=</span> <span class="n">due_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
@@ -277,10 +288,11 @@
                     <span class="s2">&quot;L&#39;année doit être de la forme &#39;YYYY&#39; (quatres chiffres)&quot;</span>
                 <span class="p">)</span>
 
-            <span class="c1"># Contrôler que la date est le jour d&#39;aujourd&#39;hui (ou ultérieur)</span>
+            <span class="c1"># Control that it&#39;s a futur day</span>
             <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">month</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">day</span><span class="p">))</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
             <span class="n">today_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">date</span> <span class="o">&gt;=</span> <span class="n">today_date</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s2"> should be a futur day&quot;</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">&quot;La date du jour doit être définie sur la date du jour &quot;</span>
                     <span class="sa">f</span><span class="s2">&quot;ou une date future. Date : </span><span class="si">{</span><span class="n">due_date</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -302,6 +314,7 @@
 <span class="sd">        :param due_date: The new due date of the task.</span>
 <span class="sd">        :type due_date: datetime</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting task due_date to </span><span class="si">{</span><span class="n">due_date</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">day</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">year</span> <span class="o">=</span> <span class="n">due_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">due_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">year</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">month</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">day</span><span class="p">))</span></div>
 
@@ -321,6 +334,9 @@
 
         <span class="k">def</span> <span class="nf">set_description</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">description</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">description</span><span class="si">}</span><span class="s2"> should have no more than 100 characters&quot;</span>
+                <span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">&quot;La description d&#39;une tâche est limitée à 100 caractères&quot;</span>
                 <span class="p">)</span>
@@ -340,6 +356,7 @@
 <span class="sd">        :param description: The new description of the task.</span>
 <span class="sd">        :type description: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting task description to </span><span class="si">{</span><span class="n">description</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span></div>
 
 
@@ -359,6 +376,7 @@
 
         <span class="k">def</span> <span class="nf">set_completion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">completion</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
             <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">completion</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="ow">not</span> <span class="n">completion</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="p">):</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">completion</span><span class="si">}</span><span class="s2"> should be between 0 and 100&quot;</span><span class="p">)</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">&quot;Le taux de complétion doit être compris entre 0 et 100&quot;</span>
                 <span class="p">)</span>
@@ -378,6 +396,7 @@
 <span class="sd">        :param completion: The new completion percentage of the task.</span>
 <span class="sd">        :type completion: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting task completion to </span><span class="si">{</span><span class="n">completion</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">completion</span> <span class="o">=</span> <span class="n">completion</span></div>
 
 
@@ -482,6 +501,12 @@
 <span class="sd">        :type task: Task</span>
 <span class="sd">        :raises ValueError: If the task is not in the list of tasks.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Remove task : (&#39;Name&#39;: </span><span class="si">{</span><span class="n">task</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">,&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;&#39;Due_date&#39;: </span><span class="si">{</span><span class="n">task</span><span class="o">.</span><span class="n">due_date</span><span class="si">}</span><span class="s2">,&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;&#39;description&#39;: </span><span class="si">{</span><span class="n">task</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2">,&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;&#39;completion&#39;: </span><span class="si">{</span><span class="n">task</span><span class="o">.</span><span class="n">completion</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">instances</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
         <span class="k">del</span> <span class="n">task</span></div>
 
