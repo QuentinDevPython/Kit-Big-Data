@@ -1,3 +1,5 @@
+"""Views for tasks."""
+
 import logging
 from django import forms
 from django.contrib.auth.views import LoginView
@@ -49,14 +51,14 @@ class CustomLoginView(LoginView):
         return url
 
     def form_valid(self, form):
-        # You can add more logging here as needed
+        """Form valid method."""
         log_message = f"User '{self.request.user}' has logged in."
         debug_logger.debug(log_message)
 
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        # You can log errors here as needed
+        """Form invalid method."""
         log_message = (
             "Failed login attempt for user: "
             f"{form.cleaned_data['username']}"
@@ -142,6 +144,7 @@ class TaskCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('tasks')
 
     def form_valid(self, form: forms.BaseModelForm) -> HttpResponse:
+        """Form valid method."""
         try:
             # Custom logic here
             form.instance.user = self.request.user
@@ -174,6 +177,7 @@ class TaskUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('tasks')
 
     def form_valid(self, form):
+        """Form valid method."""
         try:
             # Get the task to be updated
             task = self.get_object()
