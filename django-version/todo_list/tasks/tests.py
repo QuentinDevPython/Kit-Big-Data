@@ -48,9 +48,9 @@ class TaskModelTestCase(TestCase):
 
     def test_task_user_deletion(self):
         """Test user deletion and associated task deletion."""
-        #task = Task.objects.create(user=self.user, title="to be deleted")
+        # task = Task.objects.create(user=self.user, title="to be deleted")
         user_id = self.user.id
-        self.user.delete()  # Deleting the user should also delete associated tasks
+        self.user.delete()  # Deleting the user should delete associated tasks
         task_exists = Task.objects.filter(user_id=user_id).exists()
         self.assertFalse(task_exists)
 
@@ -68,7 +68,9 @@ class TaskViewsTestCase(TestCase):
 
     def setUp(self):
         """Set up test data for the view tests."""
-        self.user = User.objects.create_user(username="testuser", password="testpassword")
+        self.user = User.objects.create_user(
+            username="testuser", password="testpassword"
+            )
         self.task = Task.objects.create(title="Test Task", user=self.user)
 
     def test_task_list_view(self):
@@ -132,6 +134,7 @@ class CustomLoginViewTestCase(TestCase):
         response = self.client.get(reverse("login"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tasks/login.html")
+
 
 if __name__ == '__main__':
     unittest.main()
